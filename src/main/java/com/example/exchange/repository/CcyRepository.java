@@ -1,17 +1,18 @@
 package com.example.exchange.repository;
 
-import com.example.exchange.model.CurrencyType;
+import com.example.exchange.model.CcyName;
+import com.example.exchange.model.FxData;
 import com.example.exchange.model.dao.CurrencyTypeRequest;
 import com.example.exchange.model.dao.CurrencyTypeResponse;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CcyRepository {
-    void saveAll(List<CurrencyTypeRequest> currencyTypeRequests);
+    void saveAll(List<FxData> fxData);
     void deleteAll();
-    List<CurrencyTypeRequest> findAll();
-    Optional<CurrencyType> getCurrencyType(String ccy);
+    List<FxData> findAll(String ccy);
+    List<FxData> getCurrencyType(String ccy);
+    List<CcyName> getCurrencies();
     CurrencyTypeResponse updateAll(List<CurrencyTypeRequest> currencyTypeRequests);
 
 }

@@ -1,21 +1,20 @@
 //package com.example.exchange.configurations;
 //
+//import org.springframework.boot.jdbc.DataSourceBuilder;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
-//import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-//import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 //
 //import javax.sql.DataSource;
 //
 //@Configuration
 //public class H2Configuration {
-//
 //    @Bean
-//    public DataSource dataSource() {
-//        return new EmbeddedDatabaseBuilder()
-//                .setType(EmbeddedDatabaseType.H2)
-//                .addScript("classpath:db/schema.sql")
-//                .addScript("classpath:db/data.sql")
+//    public DataSource getDataSource() {
+//        return DataSourceBuilder.create()
+//                .driverClassName("org.h2.Driver")
+//                .url("jdbc:h2:mem:testdb")
+//                .username("sa")
+//                .password("password")
 //                .build();
 //    }
 //}

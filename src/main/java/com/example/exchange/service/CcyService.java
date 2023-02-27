@@ -1,6 +1,7 @@
 package com.example.exchange.service;
 
-import com.example.exchange.model.CurrencyType;
+import com.example.exchange.model.CcyName;
+import com.example.exchange.model.FxData;
 import com.example.exchange.model.dao.CurrencyTypeRequest;
 import com.example.exchange.model.dao.CurrencyTypeResponse;
 
@@ -8,10 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CcyService {
-    CurrencyTypeResponse saveAll(List<CurrencyTypeRequest> currencyTypeRequests);
+//    CurrencyTypeResponse saveAll(List<CurrencyTypeRequest> currencyTypeRequests);
     CurrencyTypeResponse deleteAll();
-    List<CurrencyType> findAll();
-    Optional<CurrencyType> getCurrencyType(String ccy);
+    List<FxData> findAll(String ccy);
+    List<FxData> getCurrencyType(String ccy);
+    List<CcyName> getCurrencies();
     CurrencyTypeResponse updateAll(List<CurrencyTypeRequest> currencyTypeRequests);
 
 }

@@ -1,41 +1,20 @@
 package com.example.exchange.model;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Value;
-import lombok.extern.jackson.Jacksonized;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import lombok.Getter;
 
-@Jacksonized
+import java.math.BigDecimal;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "CcyAmt")
+@Getter
 public class CcyAmt {
-    @JacksonXmlProperty(localName = "Ccy")
-    private String ccy;
+    @XmlElement(name = "Ccy")
+    private String currency;
 
-    @JacksonXmlProperty(localName = "Amt")
-    private String amt;
-
-    public CcyAmt() {
-    }
-
-    public CcyAmt(String ccy, String amt) {
-        this.ccy = ccy;
-        this.amt = amt;
-    }
-
-    // getters and setters
-    public String getCcy() {
-        return ccy;
-    }
-
-    public void setCcy(String ccy) {
-        this.ccy = ccy;
-    }
-
-    public String getAmt() {
-        return amt;
-    }
-
-    public void setAmt(String amt) {
-        this.amt = amt;
-    }
+    @XmlElement(name = "Amt")
+    private BigDecimal amount;
 }

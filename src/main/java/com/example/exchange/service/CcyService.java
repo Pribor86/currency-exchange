@@ -6,14 +6,16 @@ import com.example.exchange.model.dao.CurrencyTypeRequest;
 import com.example.exchange.model.dao.CurrencyTypeResponse;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CcyService {
-//    CurrencyTypeResponse saveAll(List<CurrencyTypeRequest> currencyTypeRequests);
     CurrencyTypeResponse deleteAll();
+
     List<FxData> findAll(String ccy);
+
     List<FxData> getCurrencyType(String ccy);
+
     List<CcyName> getCurrencies();
+
     CurrencyTypeResponse updateAll(List<CurrencyTypeRequest> currencyTypeRequests);
 
 }

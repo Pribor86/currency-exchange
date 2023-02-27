@@ -3,7 +3,6 @@ package com.example.exchange.controllers;
 import com.example.exchange.model.CcyName;
 import com.example.exchange.model.FxData;
 import com.example.exchange.model.dao.CurrencyTypeRequest;
-import com.example.exchange.model.dao.CurrencyTypeResponse;
 import com.example.exchange.service.CcyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,11 +17,6 @@ import java.util.List;
 public class CurrencyExchangeController {
 
     private final CcyService ccyService;
-
-//    @PostMapping("/save-all")
-//    CurrencyTypeResponse saveAll(@RequestBody List<CurrencyTypeRequest> currencyTypeRequests) {
-//        return ccyService.saveAll(currencyTypeRequests);
-//    }
 
     @PostMapping("/delete-all")
     public void deleteAll() {

@@ -16,18 +16,13 @@ import java.util.*;
 @Repository
 @RequiredArgsConstructor
 public class CcyRepositoryImpl implements CcyRepository {
-
-//    private final NamedParameterJdbcOperations jdbcOperations;
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
     public void saveAll(List<FxData> fxData) {
-//hibernate.cfg.xm
-
-
         for (FxData fx : fxData) {
             jdbcTemplate.update(
-                    "INSERT INTO CURRENCY (id, type_name, curr_date, currency, amount) VALUES (:id, :type_name, :curr_date, :currency, :amount)",
+                    "INSERT INTO fx_data (id, type_name, curr_date, currency, amount) VALUES (:id, :type_name, :curr_date, :currency, :amount)",
                     Map.of(
                             "id", fx.getId(),
                             "type_name", fx.getType_name(),
@@ -37,25 +32,6 @@ public class CcyRepositoryImpl implements CcyRepository {
                     )
             );
         }
-
-//        String sql = "INSERT INTO CURRENCY (id, type_name, curr_date, currency, amount) VALUES (?, ?, ?, ?, ?)";
-//        String sql = "INSERT INTO CURRENCY (id, type_name, curr_date, currency, amount) VALUES (?, ?, ?, ?, ?)";
-//        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
-//            @Override
-//            public void setValues(PreparedStatement ps, int i) throws SQLException {
-//                ps.setString(1, fxData.get(i).getId());
-//                ps.setString(2, fxData.get(i).getType_name());
-//                ps.setString(3, fxData.get(i).getCurr_date());
-//                ps.setString(4, fxData.get(i).getCurrency());
-//                ps.setFloat(5, fxData.get(i).getAmount());
-//            }
-//
-//            @Override
-//            public int getBatchSize() {
-//                return fxData.size();
-//            }
-//        });
-        System.out.println("Currencies: " + fxData.toString());
         log.info("Saving all currencies");
     }
 
@@ -67,24 +43,26 @@ public class CcyRepositoryImpl implements CcyRepository {
     @Override
     public List<FxData> findAll(String ccy) {
         log.info("Finding all currencies");
-       return jdbcTemplate.query(
-                    "SELECT * FROM CURRENCY WHERE currency LIKE :currency",
-                    Map.of(
-                            "currency",
-                            '%' + ccy + '%'
-                    ), (rs, rowNum) -> new FxData(
-                            rs.getInt("id"),
-                            rs.getString("type_name"),
-                            rs.getString("curr_date"),
-                            rs.getString("currency"),
-                            rs.getBigDecimal("amount")
-                    )
-            );
+        return jdbcTemplate.query(
+                "SELECT * FROM fx_data WHERE currency LIKE :currency",
+                Map.of(
+                        "currency",
+                        '%' + ccy + '%'
+                ), (rs, rowNum) -> new FxData(
+                        rs.getInt("id"),
+                        rs.getString("type_name"),
+                        rs.getString("curr_date"),
+                        rs.getString("currency"),
+                        rs.getBigDecimal("amount")
+                )
+        );
     }
 
     @Override
     public List<FxData> getCurrencyType(String ccy) {
         log.info("Finding currency by ccy: {}", ccy);
+
+        //TODO: get current date if i get right solution for getting data from api and store it to DB
 //        Date currentDate = new Date();
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //        String formattedDate = dateFormat.format(currentDate);
@@ -93,28 +71,28 @@ public class CcyRepositoryImpl implements CcyRepository {
 
 
         return jdbcTemplate.query(
-                       "SELECT * FROM CURRENCY WHERE CURR_DATE = :date and currency LIKE :currency",
-                          Map.of(
-                                    "date",
-                                    formattedDate,
-                                    "currency",
-                                    '%' + ccy + '%'
+                "SELECT * FROM fx_data WHERE CURR_DATE = :date and currency LIKE :currency",
+                Map.of(
+                        "date",
+                        formattedDate,
+                        "currency",
+                        '%' + ccy + '%'
 
-                          ), (rs, rowNum) -> new FxData(
-                                  rs.getInt("id"),
-                                 rs.getString("type_name"),
-                                 rs.getString("curr_date"),
-                                 rs.getString("currency"),
-                                 rs.getBigDecimal("amount")
-                          )
-                    );
+                ), (rs, rowNum) -> new FxData(
+                        rs.getInt("id"),
+                        rs.getString("type_name"),
+                        rs.getString("curr_date"),
+                        rs.getString("currency"),
+                        rs.getBigDecimal("amount")
+                )
+        );
     }
 
     @Override
     public List<CcyName> getCurrencies() {
         log.info("Finding all currencies");
         return jdbcTemplate.query(
-                "SELECT DISTINCT currency FROM CURRENCY",
+                "SELECT DISTINCT currency FROM fx_data",
                 (rs, rowNum) -> new CcyName(
                         rs.getString("currency")
                 )

@@ -11,20 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CcyServiceImpl implements CcyService{
+public class CcyServiceImpl implements CcyService {
 
     private final CcyRepository ccyRepository;
-
-//    @Override
-//    public CurrencyTypeResponse saveAll(List<CurrencyTypeRequest> currencyTypeRequests) {
-//        log.info("CurrencyTypeService saveAll");
-//        return null;
-//    }
 
     @Override
     public CurrencyTypeResponse deleteAll() {

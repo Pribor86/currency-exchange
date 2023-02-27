@@ -5,22 +5,16 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
-import lombok.Setter;
 
-import java.util.List;
-
-@XmlRootElement(name = "FxRate")
-@Getter
-@Setter
+@XmlRootElement(name = "CcyNtry")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class FxRate {
+@Getter
+public class CcyNameType {
+    @XmlElement(name = "Ccy")
+    private String ccy;
+    @XmlElement(name = "CcyNbr")
+    private String ccyNbr;
+    @XmlElement(name = "CcyMnrUnts")
+    private String ccyMnrUnts;
 
-    @XmlElement(name = "Tp")
-    private String tp;
-
-    @XmlElement(name = "Dt")
-    private String date;
-
-    @XmlElement(name = "CcyAmt")
-    private List<CcyAmt> ccyAmts;
 }

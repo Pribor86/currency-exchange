@@ -17,22 +17,6 @@ import static org.quartz.TriggerBuilder.newTrigger;
 public class ApiRequestScheduler {
 
     public void scheduleApiRequest() throws SchedulerException {
-        //schedule the api request to run every 24 hours
-//        log.info("Scheduling api request public class ApiRequestScheduler");
-//        Scheduler scheduler = new StdSchedulerFactory().getScheduler();
-//        JobDetail job = newJob(ApiRequestJob.class)
-//                .withIdentity("apiRequestJob", "group1")
-//                .build();
-//
-//        Trigger trigger = newTrigger()
-//                .withIdentity("apiRequestTrigger", "group1")
-//                .withSchedule(simpleSchedule()
-//                        .withIntervalInHours(24)
-//                        .repeatForever())
-//                .build();
-//        scheduler.start();
-//        scheduler.scheduleJob(job, trigger);
-
         Scheduler scheduler = new StdSchedulerFactory().getScheduler();
         JobDetail job = newJob(ApiRequestJob.class)
                 .withIdentity("apiRequestJob", "group1")
@@ -46,8 +30,5 @@ public class ApiRequestScheduler {
                 .build();
         scheduler.start();
         scheduler.scheduleJob(job, trigger);
-
-
     }
-
 }
